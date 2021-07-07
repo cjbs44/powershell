@@ -1,0 +1,10 @@
+Install-Module -Name MSCommerce
+Import-Module -Name MSCommerce
+connect-mscommerce
+$products = Get-MSCommerceProductPolicies -PolicyId AllowSelfServicePurchase
+foreach ($product in $products)
+    {
+        $productid = out-string -InputObject $product.ProductID
+        Write-Host $productid
+        Update-MSCommerceProductPolicy -PolicyId AllowSelfServicePurchase -ProductId $productid -Enabled $false
+    }
